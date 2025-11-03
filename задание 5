@@ -1,59 +1,58 @@
-using System;
-
-public class Pet
+public class Animal
+ {
+     public string name;
+     public string Name
+     {
+         get { return name; }
+         set { name = value; }
+     }
+     public Animal(string name)
+     {
+         Name = name;
+     }
+     public void Speak()
+     {
+         Console.WriteLine($"{name}, издает звук");
+     }
+ }
+ public class Cat : Animal
+ {
+     public int lives;
+     public int Lives
+     {
+         get { return lives; }
+         set
+         {
+             if (value < 0 || value > 9)
+             {
+                 Console.WriteLine("Ошибка");
+                 return;
+             }
+             lives = value;
+         }
+     }
+     public Cat(string name, int lives) : base(name) 
+     {
+         Lives = lives;
+     }
+     public Cat(string name): this(name, 9) { }
+     public void Meow()
+     {
+         int result = Lives - 1;
+         Console.WriteLine($"{Name} мяукнул, осталось жизней: {result}");
+     }
+ }
+ class Program
 {
-    private string name;
-    private int energy;
-
-    public Pet(string name, int energy)
+    static void Main(string[] args)
     {
-        Name = name;
-        Energy = energy;
+        Animal animal1 = new Animal("Бобик");
+        Animal animal2 = new Animal("Муся");
+        Cat cat1 = new Cat("Бобик", 9);
+        Cat cat2 = new Cat("Муся");
+
+        animal1.Speak();
+        cat1.Meow();
+        animal2.Speak();
+        cat2.Meow();
     }
-
- 
-    public string Name
-    {
-        get { return name; }
-        set { name = value; }
-    }
-
-    public int Energy
-    {
-        get { return energy; }
-        set
-        {
-            if (value < 0) energy = 0;
-            else if (value > 100) energy = 100;
-            else energy = value;
-        }
-    }
-
-    
-    public void Play()
-    {
-        
-        Energy = Math.Max(0, Energy - 20);
-        Console.WriteLine($"{Name} играет, энергия: {Energy}.");
-    }
-
-    public void Rest()
-    {
-        Energy = Math.Min(100, Energy + 30);
-        Console.WriteLine($"{Name} отдыхает, энергия: {Energy}.");
-    }
-}
-public class Program
-{
-    public static void Main()
-    {
-        Pet myPet = new Pet("Марсик", 50);
-
-        myPet.Play();
-
-        myPet.Rest();
-
-        myPet.Energy = 150;
-        Console.WriteLine($"Попытка установить энергию 150: {myPet.Energy}");
-    }
-}
