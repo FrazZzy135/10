@@ -1,83 +1,69 @@
-using System;
-
-namespace dz224_21
-{
-    class BankAccount
+public class Device
     {
-        private string owner;
-        private double balance;
-
-        public string Owner
+        public string brand;
+        public string Brand
         {
-            get { return owner; }
-            set { owner = value; }
+            get { return brand; }
+            set { brand = value; }
         }
-
-        public double Balance
+        public Device(string brand)
         {
-            get { return balance; }
-            set
-            {
-                if (value < 0)
-                {
-                    Console.WriteLine("Баланс не может быть отрицательным!");
-                    balance = 0;
-                }
-                else
-                {
-                    balance = value;
-                }
-            }
+            Brand = brand;
         }
-
-        public BankAccount(string owner, double balance)
+        public void PowerOn()
         {
-            Owner = owner;
-            Balance = balance;
-        }
-
-        public void Deposit(double amount)
-        {
-            if (amount > 0)
-            {
-                Balance += amount;
-                Console.WriteLine($"{Owner}, баланс: {Balance}.");
-            }
-            else
-            {
-                Console.WriteLine("Сумма должна быть больше 0!");
-            }
-        }
-
-        public void Withdraw(double amount)
-        {
-            if (amount <= 0)
-            {
-                Console.WriteLine("Сумма должна быть больше 0!");
-            }
-            else if (amount > Balance)
-            {
-                Console.WriteLine("Недостаточно средств!");
-            }
-            else
-            {
-                Balance -= amount;
-                Console.WriteLine($"{Owner}, баланс: {Balance}.");
-            }
+            Console.WriteLine($"{brand}, включен");
         }
     }
-
-    class Program
+    public class Laptop : Device
     {
-        static void Main(string[] args)
+        private int ram, battery;
+        public int Ram
         {
-
-            BankAccount acc = new BankAccount("Иван", 1000);
-            acc.Deposit(500);    
-            acc.Withdraw(500);   
-            acc.Withdraw(2000); 
-
-            Console.ReadLine();
+            get { return ram; }
+            set
+            {
+                if (value < 0 || value > 64)
+                {
+                    Console.WriteLine("Ошибка");
+                    return;
+                }
+                ram = value;
+            }
         }
+        public int Battery
+        {
+            get { return battery; }
+            set
+            {
+                if (value < 0 || value > 100)
+                {
+                    Console.WriteLine("Ошибка");
+                    return;
+                }
+                battery = value;
+            }
+
+        }
+        public Laptop(string brand, int ram, int battery) : base(brand)
+        {
+            Ram = ram;
+            Battery = battery;
+        }
+        public void Work()
+        {
+            Console.WriteLine($"Ноутбук {brand}, ОЗУ: {ram} ГБ, заряд: {battery}%");
+        }
+
+    }
+class Program
+{
+    static void Main(string[] args)
+    {
+        Device device = new Device(" Redmi");
+        Laptop laptop = new Laptop(" Redmi",32,20);
+
+        device.PowerOn();
+        laptop.Work();
     }
 }
