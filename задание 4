@@ -1,73 +1,35 @@
-using System;
-
-class Circle
-
+internal class Point
 {
-
-    private double radius; 
-
-    public double Radius 
-
+   public double x,y;
+    public double X
     {
-
-        get { return radius; }
-
-        set
-
-        {
-
-            if (value > 0)
-
-                radius = value;
-
-            else
-
-                Console.WriteLine("Радиус должен быть больше 0!");
-
-        }
-
+        get { return x; } set { x = value; }
     }
-
-    public Circle(double radius) 
-
+    public double Y
     {
-
-        this.Radius = radius;
-
+        get { return y; } set { y = value; }
     }
-
-    public void GetArea()
-
+    public Point(double x, double y)
     {
-
-        double area = Math.PI * radius * radius;
-
-        Console.WriteLine($"Площадь круга: {area}.");
-
+        X = x;
+        Y = y;
     }
-
-}
-
-class Program
-
+    public Point(double value) : this(value, value) { }
+    public Point() : this(1.8,0.7) { }
+    public void Show()
+    {
+        Console.WriteLine($"Точка: [{X};{Y}]");
+    }
+    class Program
 {
-
-    static void Main()
-
+    static void Main(string[] args)
     {
+        Point point1 = new Point(5.9,9.5);
+        Point point2 = new Point(8.6);
+        Point point3 = new Point();
 
-        Circle circle = new Circle(5); 
-
-        circle.GetArea(); 
-
-        circle.Radius = -2; 
-
-        Circle circle2 = new Circle(1);
-
-        circle2.GetArea();
-
-        Console.ReadLine();
-
+        point1.Show();
+        point2.Show();
+        point3.Show();
     }
-
 }
